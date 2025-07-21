@@ -43,11 +43,13 @@ function SignInSignUp(props: SignInSignUpProps) {
         alert("Passwords do not match.");
         return;
       }
+      // assuming automatic login after signup
       setInGlobalContext({
         userInfo: { emailOrUsername: formData.emailOrUsername },
-        formConfig: { isLogin: true, isSignUp: false },
+        formConfig: { isLogin: false, isSignUp: false },
       });
       navigate(PATHS.HOME);
+      alert("Account created successfully! You are now logged in.");
     } else {
       if (!formData?.emailOrUsername || !formData.password) {
         alert("Please fill in all fields.");
@@ -83,7 +85,7 @@ function SignInSignUp(props: SignInSignUpProps) {
           setInGlobalContext({
             formConfig: { isLogin: true, isSignUp: false },
           });
-        }else{
+        } else {
           navigate(PATHS.HOME);
         }
       }
@@ -140,6 +142,7 @@ function SignInSignUp(props: SignInSignUpProps) {
               </label>
               <input
                 type="password"
+                id="repeatPassword"
                 placeholder="Enter your password again"
                 className="w-full px-4 py-2 bg-gray-100 text-sm rounded-xl outline-none focus:ring-2 focus:ring-blue-500"
                 onChange={handleChange}

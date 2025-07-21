@@ -7,7 +7,7 @@ import { useGlobalContext } from "../../GlobalProvider/hooks";
 type HeaderProps = {};
 
 function Header(props: HeaderProps) {
-  const { userInfo } = useGlobalContext();
+  const { userInfo, setInGlobalContext } = useGlobalContext();
   const navigate = useNavigate();
 
   return (
@@ -27,6 +27,9 @@ function Header(props: HeaderProps) {
               <div
                 onClick={() => {
                   navigate(PATHS.HOME);
+                  setInGlobalContext({
+                    formConfig: { isSignUp: false, isLogin: false },
+                  });
                 }}
                 className="cursor-pointer"
               >
