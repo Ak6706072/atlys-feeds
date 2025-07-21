@@ -12,7 +12,7 @@ function Feeds(props: Feeds) {
   const [feedsData, setFeedsData] = useState<
     { body: string; id: number; name: string }[]
   >([]);
-  const { formConfig, setInGlobalContext } = useGlobalContext();
+  const { formConfig, setInGlobalContext, userInfo } = useGlobalContext();
 
   const handleChange = useCallback(
     (value: string) => {
@@ -22,6 +22,10 @@ function Feeds(props: Feeds) {
   );
 
   const handleAdd = () => {
+    if (!userInfo?.emailOrUsername) {
+      alert("Plese log in to post");
+      return;
+    }
     if (!text) {
       alert("Please write something before posting.");
       return;
