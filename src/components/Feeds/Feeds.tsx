@@ -9,7 +9,9 @@ type Feeds = {};
 
 function Feeds(props: Feeds) {
   const [text, setText] = useState("");
-  const [feedsData, setFeedsData] = useState([]);
+  const [feedsData, setFeedsData] = useState<
+    { body: string; id: number; name: string }[]
+  >([]);
   const { formConfig, setInGlobalContext } = useGlobalContext();
 
   const handleChange = useCallback(
@@ -20,7 +22,15 @@ function Feeds(props: Feeds) {
   );
 
   const handleAdd = () => {
-
+    if (!text) {
+      alert("Please write something before posting.");
+      return;
+    }
+    setFeedsData((prev) => [
+      ...prev,
+      { body: text, id: prev.length + 1, name: "New User" },
+    ]);
+    setText("");
   };
 
   useEffect(() => {
@@ -29,7 +39,8 @@ function Feeds(props: Feeds) {
         "https://jsonplaceholder.typicode.com/posts"
       );
       const data = await response.json();
-      setFeedsData(data);
+
+      setFeedsData(data.slice(0, 5));
     })();
   }, []);
 
@@ -44,7 +55,7 @@ function Feeds(props: Feeds) {
       </div>
       <div className="feeds-wrapper pt-[20px]">
         {feedsData.map((data, index) => (
-          <FeedCard key={index} feedData={data?.body || ""} />
+          <FeedCard key={index} feedData={data} />
         ))}
       </div>
 

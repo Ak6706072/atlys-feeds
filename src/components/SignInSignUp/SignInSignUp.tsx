@@ -79,7 +79,13 @@ function SignInSignUp(props: SignInSignUpProps) {
   useEffect(() => {
     if (typeof login !== "undefined") {
       if (login) {
-        setInGlobalContext({ formConfig: { isLogin: true, isSignUp: false } });
+        if (!formConfig?.isLogin && !formConfig?.isSignUp) {
+          setInGlobalContext({
+            formConfig: { isLogin: true, isSignUp: false },
+          });
+        }else{
+          navigate(PATHS.HOME);
+        }
       }
     }
   }, [login]);

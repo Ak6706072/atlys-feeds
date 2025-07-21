@@ -5,7 +5,7 @@ import MessageBox from "./MessageBox";
 import { useGlobalContext } from "../../GlobalProvider/hooks";
 
 type FeedCard = {
-  feedData: Record<string, string>;
+  feedData: { body: string; id: number; name: string };
 };
 
 enum ActionType {
